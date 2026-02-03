@@ -1,1 +1,127 @@
-# Medical Report Analyzer\n\nA web application that analyzes medical reports and provides insights on abnormal parameters, health recommendations, and specialist referrals.\n\n## Features\n\n- **File Upload**: Supports PDF and image files (PNG, JPG, JPEG)\n- **Text Extraction**: Uses OCR for images and PDF parsing\n- **Parameter Analysis**: Identifies 15+ common medical parameters\n- **Health Insights**: Flags abnormal values with severity levels\n- **Recommendations**: Provides actionable health improvement steps\n- **Specialist Referrals**: Suggests appropriate medical specialists\n\n## Supported Medical Parameters\n\n- Total Cholesterol, LDL, HDL, Triglycerides\n- Glucose (Fasting)\n- Hemoglobin, Hematocrit\n- White Blood Cells, Red Blood Cells, Platelets\n- Creatinine, Blood Urea Nitrogen (BUN)\n- ALT (SGPT), AST (SGOT)\n- TSH (Thyroid Stimulating Hormone)\n\n## Installation\n\n### Prerequisites\n\n1. **Python 3.7+** - [Download Python](https://www.python.org/downloads/)\n2. **Tesseract OCR** - [Download Tesseract](https://github.com/UB-Mannheim/tesseract/wiki)\n\n### Quick Setup\n\n1. **Clone or download** this project\n2. **Run setup.bat** (Windows) or follow manual steps below\n\n### Manual Setup\n\n1. **Install Python dependencies:**\n   ```bash\n   pip install -r requirements.txt\n   ```\n\n2. **Install Tesseract OCR:**\n   - Download from: https://github.com/UB-Mannheim/tesseract/wiki\n   - Add to PATH or update pytesseract config in app.py\n\n3. **Run the application:**\n   ```bash\n   python app.py\n   ```\n\n4. **Open browser:** http://localhost:5000\n\n## Usage\n\n1. **Upload Report**: Drag & drop or browse for your medical report (PDF/Image)\n2. **Analyze**: Click \"Analyze Report\" to process the file\n3. **Review Results**: View abnormal parameters, recommendations, and specialist referrals\n4. **Take Action**: Follow the provided health improvement steps\n\n## File Structure\n\n```\nMedical Report Analyser/\n├── app.py              # Flask backend server\n├── index.html          # Frontend interface\n├── script.js           # JavaScript functionality\n├── style.css           # Styling\n├── requirements.txt    # Python dependencies\n├── setup.bat          # Windows setup script\n└── README.md          # This file\n```\n\n## Technical Details\n\n### Backend (Flask)\n- **Text Extraction**: PyPDF2 for PDFs, Tesseract OCR for images\n- **Pattern Matching**: Regex patterns to identify medical parameters\n- **Analysis Engine**: Compares values against reference ranges\n- **API Endpoint**: `/upload` for file processing\n\n### Frontend (Vanilla JS)\n- **File Upload**: Drag & drop interface with progress feedback\n- **Dynamic Results**: Real-time parameter visualization\n- **Responsive Design**: Works on desktop and mobile devices\n\n## Customization\n\n### Adding New Parameters\n\n1. **Update REFERENCE_RANGES** in `app.py`:\n   ```python\n   'new_parameter': {'min': 0, 'max': 100, 'unit': 'mg/dL', 'name': 'New Parameter'}\n   ```\n\n2. **Add regex pattern** in `parse_medical_values()`:\n   ```python\n   'new_parameter': r'new\\s+parameter[:\\s]+(\\d+(?:\\.\\d+)?)'\n   ```\n\n3. **Add recommendations** in `get_recommendations()`\n4. **Add specialist mapping** in `get_specialists()`\n\n### Styling Modifications\n\n- **Colors**: Update CSS variables in `:root`\n- **Layout**: Modify `.container` and `.card` classes\n- **Severity Colors**: Update `.parameter-card.high/medium/low`\n\n## Troubleshooting\n\n### Common Issues\n\n1. **\"No medical parameters found\"**\n   - Ensure report contains recognizable parameter names\n   - Check if text extraction is working properly\n   - Verify file is not corrupted\n\n2. **Tesseract errors**\n   - Install Tesseract OCR properly\n   - Add Tesseract to system PATH\n   - Update pytesseract.pytesseract.tesseract_cmd in app.py\n\n3. **CORS errors**\n   - Ensure Flask-CORS is installed\n   - Check if backend is running on port 5000\n\n### Debug Mode\n\nRun with debug output:\n```bash\npython app.py\n```\n\n## Security Notes\n\n- Files are temporarily stored and immediately deleted after processing\n- No medical data is permanently stored\n- Use HTTPS in production environments\n- Consider adding user authentication for production use\n\n## Disclaimer\n\n**This tool is for educational purposes only and should not replace professional medical advice. Always consult with qualified healthcare providers for medical decisions.**\n\n## License\n\nMIT License - Feel free to modify and distribute.\n\n## Support\n\nFor issues or questions, please check the troubleshooting section or create an issue in the project repository.
+#  Medical Report Analyzer
+
+AI-powered medical report analysis using Google Gemini 2.5 Flash. Upload your medical reports and get instant insights on abnormal parameters, personalized recommendations, and specialist referrals.
+
+## Features
+
+-  **AI-Powered Analysis** - Uses Google Gemini 2.5 Flash for intelligent medical report interpretation
+-  **PDF Support** - Upload and analyze PDF medical reports
+-  **Abnormal Parameter Detection** - Focuses on parameters that need attention
+-  **Smart Recommendations** - Get personalized health improvement suggestions
+-  **Specialist Referrals** - AI suggests appropriate medical specialists
+-  **Responsive Design** - Works on desktop, tablet, and mobile devices
+
+##  Quick Start
+
+### Prerequisites
+- Python 3.7+
+- Google Gemini API key ([Get one here](https://makersuite.google.com/app/apikey))
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd "Medical Report Analyser"
+   ```
+
+2. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate  # Windows
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements_minimal.txt
+   ```
+
+4. **Set up API key**
+   Create a `.env` file:
+   ```
+   GEMINI_API_KEY=your-gemini-api-key-here
+   ```
+
+5. **Run the application**
+   ```bash
+   python app.py
+   ```
+
+6. **Open browser**
+   Navigate to: http://localhost:5000
+
+##  How to Use
+
+1. **Upload** your medical report (PDF format)
+2. **Click "Analyze Report"** to process with AI
+3. **Review results** in the 4-column grid layout
+4. **Follow recommendations** and consult suggested specialists
+
+##  Project Structure
+
+```
+Medical Report Analyser/
+├── app.py                 # Flask backend with Gemini AI
+├── templates/
+│   └── index.html        # Frontend interface
+├── static/
+│   ├── style.css         # Styling
+│   └── script.js         # JavaScript functionality
+├── .env                  # API key configuration
+├── requirements_minimal.txt  # Python dependencies
+└── README.md            # This file
+```
+
+##  Technology Stack
+
+- **Backend**: Flask, Google Generative AI (Gemini 2.5 Flash)
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **PDF Processing**: PyPDF2
+- **Environment**: Python-dotenv
+
+##  UI Features
+
+- **4-Column Grid Layout** - Displays abnormal parameters efficiently
+- **Responsive Design** - Adapts to different screen sizes
+- **Color-Coded Severity** - Visual indicators for parameter severity levels
+- **Clean Interface** - Minimal, medical-focused design
+
+##  Important Notes
+
+- **Educational Use Only** - This tool is for educational purposes and should not replace professional medical advice
+- **Data Privacy** - Files are processed temporarily and immediately deleted
+- **API Costs** - Using Gemini API may incur costs based on usage
+
+##  Development
+
+### Adding New Features
+The AI handles most medical analysis automatically. To customize:
+
+1. **Modify prompts** in `analyze_with_gemini()` function
+2. **Update UI** in `templates/index.html` and `static/` files
+3. **Add new routes** in `app.py` as needed
+
+### Environment Variables
+- `GEMINI_API_KEY` - Your Google Gemini API key (required)
+
+##  License
+
+MIT License - Feel free to use and modify.
+
+##  Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+##  Support
+
+For issues or questions:
+- Check the troubleshooting section above
+- Create an issue in the repository
+- Ensure your API key is properly configured
+
+---
+
+** Disclaimer**: This application is for educational and informational purposes only. Always consult qualified healthcare professionals for medical decisions and treatment.
