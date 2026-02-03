@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedCheck | Report Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MedCheck<span>AI</span></h1>
+            <p>Upload your lab report for a quick health breakdown.</p>
+        </header>
+
+        <section id="upload-section" class="card">
+            <div id="drop-zone">
+                <div class="icon">📁</div>
+                <p>Drag & drop your PDF/Image here or <strong>Browse</strong></p>
+                <input type="file" id="file-input" hidden>
+            </div>
+            <button id="analyze-btn" disabled>Analyze Report</button>
+        </section>
+
+        <section id="results-section" class="hidden">
+            <div class="status-summary">
+                <div class="badge abnormal">0 Abnormal Flags</div>
+                <div class="badge normal">0 Normal Parameters</div>
+            </div>
+
+            <div class="results-container">
+                <h3>🚨 Abnormal Parameters</h3>
+                <div id="abnormal-grid" class="parameter-grid">
+                    <!-- Abnormal parameters will be inserted here -->
+                </div>
+
+                <div class="recommendations-section">
+                    <h3>💡 AI Recommendations</h3>
+                    <div class="recommendation-box">
+                        <div id="summary-text"></div>
+                        <ul id="recommendations-list"></ul>
+                        <div class="specialist" id="specialists-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="location.reload()">Upload New Report</button>
+        </section>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
